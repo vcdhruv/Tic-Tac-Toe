@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe_2_player/GameScreenPage.dart';
 
 class HomeScreenPage extends StatefulWidget {
   const HomeScreenPage({super.key});
@@ -16,7 +17,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Color(0xFF323D5B),
       body: Form(
         key: _formkey,
         child: Column(
@@ -53,8 +54,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                   hintText: "Player 1 Name",
                   hintStyle: TextStyle(color: Colors.white),
                 ),
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return "Please enter player 1 name";
                   }
                   return null;
@@ -82,28 +83,42 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                   hintText: "Player 2 Name",
                   hintStyle: TextStyle(color: Colors.white),
                 ),
-                validator: (value){
-                  if(value == null || value.isEmpty){
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
                     return "Please enter player 2 name";
                   }
                   return null;
                 },
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             InkWell(
-              onTap: (){},
+              onTap: () {
+                if (_formkey.currentState!.validate()) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => GameScreenPage(
+                          p1: player1Controller.text,
+                          p2: player2Controller.text),
+                    ),
+                  );
+                }
+              },
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.green,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 17,horizontal: 20),
-                child: Text("Start Game",style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                ),),
+                padding: EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+                child: Text(
+                  "Start Game",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
               ),
             ),
           ],
